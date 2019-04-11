@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.happy.prj.Statement_Member">
+
+	<select id="memberList" resultType="MemberDto">
+		SELECT ID, PW, NAME, AUTH, DELFLAG, REGDATE
+		FROM MEMBERS ORDER BY AUTH, REGDATE
+	</select>
+
+	<insert id="signupmember" parameterType="MemberDto">
+		INSERT INTO MEMBERS
+		(ID, PW, NAME, AUTH, DELFLAG, REGDATE)
+		VALUES(#{id}, #{pw}, #{name}, 'U', 'N', SYSDATE)
+	</insert>
+
+	<select id="idduplicatecheck" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		SELECT COUNT(ID) ID FROM MEMBERS WHERE ID = #{id}
+	</select>
+
+	<select id="loginMember" parameterType="MemberDto"
+		resultType="MemberDto">
+		SELECT ID, PW, AUTH, NAME FROM MEMBERS WHERE ID=#{id} AND PW=#{pw}
+	</select>
+	
+	<select id="selStringPw" parameterType="MemberDto" resultType="java.lang.String">
+		SELECT PW FROM MEMBERS WHERE ID=#{id}
+	</select>
+</mapper>

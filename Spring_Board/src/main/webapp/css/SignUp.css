@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+#container{
+	position: relative;
+	top: 100px;
+	left: 150px;
+	width: 1000px;
+}
+
+#title{
+	position: relative;
+}
+
+#TitleImage{
+	width: 950px;
+/* 	height: 70px; */
+}
+
+#info{
+	position: relative;
+	margin-top: 5px;
+	width: 950px;
+	height: 240px;
+}
+
+#LeftInfo{
+	float: left;
+	width: 230px;
+	height: 240px;
+	margin-left: 20px;
+	margin-right: 50px;
+	margin-top: 10px;
+	font-weight: bold;
+	font-size: 40px;
+}
+
+#CenterInfo{
+	width: 700px;
+}
+
+#name{
+	margin-top: 30px;
+}
+
+#name, #id, #pw, #passOK{
+	margin-bottom: 10px;
+	width: 200px;
+	height: 20px;
+}
+
+#line{
+	position: relative;
+	border-bottom: 2px solid gray;
+	left: 20px;
+	width: 800px;
+	height: 20px;
+}
+
+#bottom{
+	width: 700px;
+	position: absolute;
+	left: 250px;
+	color: gray;
+	font-size: 11px;
+}
+
+#bottomStrong{
+	position: relative;
+	font-size: 15px;
+	color: tomato;
+	left: 10px;
+	top: 10px;
+	bottom: 10px;
+}
+
+#button{
+	position: relative;
+	margin-top: 40px;
+	left: 50px;
+}
+
+
+
+
+

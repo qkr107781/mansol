@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<context:component-scan base-package="com.happy.prj"/>
+	<mvc:annotation-driven/>
+	
+<!-- 	<context:annotation-config/> -->
+<!-- 	<mvc:resources location="/WEB-INF/view/images/" mapping="/images/**"/> -->
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<!-- 메일 보내기 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com"/> <!-- host: 서버 주소 -->
+		<property name="port" value="587"/> <!-- port: 포트번호, 기본 값은 25 -->
+		<property name="username" value="info.happy0612@gmail.com"/> <!-- username: 메일 보내기 위한 사용자 id -->
+		<property name="password" value="happy@0612"/> <!-- password: 계정에 관련된 비밀 번호 -->
+<!-- 		<property name="defaultEncoding"/> --> <!-- 기본 인코딩 설정 -->
+		
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+              	<prop key="mail.smtp.auth">true</prop>
+               	<prop key="mail.smtp.starttls.enable">true</prop>
+               	<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+	<mvc:interceptors>
+		<!-- 세션이 없는 상태에서 주소창에 .do를 입력해 접근하는 것을 막아줌 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/boardWriteForm.do"/>
+			<mvc:mapping path="/mail.do"/>
+			<mvc:mapping path="/memberList.do"/>
+			<bean class="com.happy.prj.interceptor.Interceptor"/>
+		</mvc:interceptor>
+		
+		<!-- spring에서 뒤로가기를 막기 위해 캐쉬를 삭제해줌 -->
+		<bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+			<!-- 캐쉬를 지워줌 -->
+			<property name="cacheSeconds" value="0"/>
+			<!-- ExpiresHeader 사용함 -->
+			<property name="useExpiresHeader" value="true"/>
+			<property name="useCacheControlHeader" value="true"/>
+			<property name="useCacheControlNoStore" value="true"/>
+			
+			<!-- /view 안에서는 24시간 동안 캐쉬를 지우지 않음. 캐쉬를 삭제하지만 특정 폴더 및 파일은 유지시키기 위해 -->
+			<property name="cacheMappings">
+				<props>
+					<prop key="/image/**">86400</prop>
+				</props>
+			</property>
+		</bean>
+	</mvc:interceptors>
+</beans>
