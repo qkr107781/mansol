@@ -1,2 +1,2 @@
 # mansol
-Do not make 2 projects
+Do not make over 2 projects
