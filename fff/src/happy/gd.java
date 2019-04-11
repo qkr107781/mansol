@@ -2,6 +2,6 @@ package happy;
 
 public class gd {
 
-	int me = 4;
-	
+	String me = "이정현";
+
 }
