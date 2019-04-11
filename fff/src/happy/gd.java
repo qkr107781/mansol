@@ -1,6 +1,6 @@
 package happy;
 
-public class gd {
+public class GD {
 
 	String me = "이정현";
 	int m = 4;
